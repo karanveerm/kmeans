@@ -1,0 +1,94 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-size: 16px;
+  background-color: #fcfcfc;
+  position: relative;
+  min-height: 100%;
+}
+
+.container {
+  min-width: 1100px;
+  min-height: 760px;
+}
+
+.kmeans-div {
+  width: 600px;
+}
+
+#kmeans-vis {
+  margin-top: 5px;
+  height: 600px;
+  width: 600px;
+  border: 1px solid black;
+}
+
+#kmeans-vis #voronoi path {
+  fill-opacity: 0.2;
+}
+
+#num-clusters {
+  border: 0px;
+  border-bottom: 1px solid black;
+  padding-left: 8px;
+  width: 30px;
+  background-color: #fcfcfc;
+}
+
+a {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.step {
+  width: 160px;
+}
+
+.algorithm-start {
+  padding-top: 10px;
+  padding-bottom: 25px;
+}
+
+.step-title {
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+.step-description {
+  padding-left: 10px;
+  padding-bottom: 15px;
+}
+
+.active {
+  /*color: #428bca;*/
+  background-color: #fcf9ce;
+  /*font-weight: bold;*/
+  cursor: pointer;
+  padding-right: 5px;
+}
+
+.demo-explanation {
+  padding-top: 5px;
+}
+
+hr {
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.range-slider-custom {
+  padding-left: 15px;
+  margin-bottom: 10px;
+}
+
+footer {
+  position: absolute;
+  font-size: 14px;
+  margin-bottom: 5px;
+  bottom: 0;
+  border-top: 1px solid #ccc;;
+  width: inherit;
+}
