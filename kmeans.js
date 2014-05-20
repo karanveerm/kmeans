@@ -6,6 +6,9 @@ $(function() {
 
   var $numClusters = $('#num-clusters');
   var numClusters = parseInt($numClusters.val(), 10);
+  var $numCentroids = $('#num-centroids');
+  var numCentroids = parseInt($numClusters.val(), 10);
+
   var $rangeSlider = $('#range-slider');
   var width = $('#kmeans-vis').width();
   var height = width;
@@ -29,7 +32,7 @@ $(function() {
 
   // Initial randomness. This is what the slider is set to.
   // 0 means data is very clustered, 100 means completely random
-  var randomness = 20;
+  var randomness = 25;
   var $step = $('.step');
 
   rangeSlider($rangeSlider[0], {
@@ -79,11 +82,11 @@ $(function() {
     }
   });
 
-  $('.reset').click(function() {
-    reset();
+  $('.new-points').click(function() {
+    resetPoints();
   });
 
-  $('.generate').click(function() {
+  $('.new-centroids').click(function() {
     generateClusters();
   });
 
@@ -102,8 +105,10 @@ $(function() {
   function resetPoints() {
     resetCentroidUpdateText();
     points = [];
-    var variance = randomness + 10;
+    var variance = randomness / 2 + 5;
     var percentageClusteredPoints = (100 - randomness) / 100;
+
+    numClusters = parseInt($numClusters.val(), 10);
 
     for (var i = 0; i < numClusters; i++) {
       // Creates a normal distribution with mean randomCenter(parameter)
@@ -122,22 +127,20 @@ $(function() {
       points.push([randomCenter(width), randomCenter(height)]);
     }
 
-    generateClusters();
-  }
-
-  function reset() {
-    resetPoints();
+    uncolorPoints();
+    resetCentroidUpdateText();
+    voronoiGroup.selectAll('*').remove();
   }
 
   // Randomly generates the clusters and initializes the d3 animation
   function generateClusters() {
     centroids = [];
-    numClusters = parseInt($numClusters.val(), 10);
+    numCentroids = parseInt($numCentroids.val(), 10);
     uncolorPoints();
     resetCentroidUpdateText();
 
     // Generate completely random centroids
-    for (var k = 0; k < numClusters; k++) {
+    for (var k = 0; k < numCentroids; k++) {
       var randomX = randomCenter(width);
       var randomY = randomCenter(height);
       centroids.push([randomX, randomY]);
@@ -160,7 +163,7 @@ $(function() {
   // For each point, we find the centroid it is the closest to.
   function findClosestCentroid() {
     centroidBins = [];
-    for (var i = 0; i < numClusters; i++) {
+    for (var i = 0; i < numCentroids; i++) {
       centroidBins.push([]);
     }
 

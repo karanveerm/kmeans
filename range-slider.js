@@ -69,7 +69,8 @@ function rangeSlider(elem, config) {
   addEventTo(range, "mousedown", function(e) {
     html.className = (html.className + ' no-select').replace(/^ +/, "");
     rangeWidth = range[!isVertical ? 'offsetWidth' : 'offsetHeight'];
-    rangeOffset = range[!isVertical ? 'offsetLeft' : 'offsetTop'];
+    rangeOffset = range.getBoundingClientRect().left;
+    // rangeOffset = range[!isVertical ? 'offsetLeft' : 'offsetTop'];
     draggerWidth = dragger[!isVertical ? 'offsetWidth' : 'offsetHeight'];
     down = true;
     updateDragger(e);

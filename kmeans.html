@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>K-Means visualization</title>
+  <title>Visualizing K-Means Clustering</title>
   <link href='http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css' rel='stylesheet'>
   <link rel='stylesheet' href='range-slider.css' type='text/css' />
   <link rel='stylesheet' href='kmeans.css' type='text/css' />
@@ -14,50 +14,53 @@
 </head>
 <body>
   <div class='container'>
-    <div class='row range-slider-custom'>
-      <!-- Using col-xs-12 will mess up range-slider -->
+    <div class='row col-xs-12 k-means-header'>
       <h1> Visualizing K-Means Clustering </h1>
-
-      Clustered data <div class='range-slider' id='range-slider'></div> Completely random
-
-      <div> We will use <input id='num-clusters' type='text' value='3'> clusters. </div>
+      <br/>
     </div>
-
     <div class='row'>
-      <div class='col-xs-7'>
-        <div id='kmeans-vis'></div>
-      </div>
-      <div class='col-xs-5'>
-        K-Means clustering  is an iterative, non-deterministic and unsupervised learning algorithm.
-        <hr>
-        <div class='algorithm-start'>
-          Given a set of $n$ points, and initial group of $k$ centroids, repeat until convergence (i.e. the diagram stops changing):
-        </div>
-        <div class='step-title closest active'>
-          Find closest centroid
-        </div>
-        <div class='step-description closest active'>
-          Find the closest centroid to each point, and group points that share the same closest centroid.
-        </div>
-        <div class='step-title update'>
-          Update centroid
-        </div>
-        <div class='step-description update'>
-          Update each centroid to be the mean of the points in its group.
-        </div>
-        <hr>
-        <div>
+      <div class='col-xs-6'>
+        <div class='row'>
+          The $k$-means algorithm is an iterative method for clustering a set of $N$ points (vectors) into $k$ groups or clusters of points.
+          <hr>
+          <h3>Algorithm</h3>
+          <div class='algorithm-start'>
+            Repeat until convergence (i.e. the diagram stops changing):
+          </div>
+          <div class='step-title closest active'>
+            Find closest centroid
+          </div>
+          <div class='step-description closest active'>
+            Find the closest centroid to each point, and group points that share the same closest centroid.
+          </div>
+          <div class='step-title update'>
+            Update centroid
+          </div>
+          <div class='step-description update'>
+            Update each centroid to be the mean of the points in its group.
+          </div>
           <a class='step btn btn-primary find'>Find closest centroid</a>
-          <a class='generate btn btn-danger'>Randomize centroids</a>
-          <a class='reset btn btn-danger'>Reset points</a>
+          <hr>
         </div>
-        <div class='demo-explanation'>
-          Click on the highlighted step, or press the buttons above.
+        <div class='row'>
+          <h3 class='data-header'>Data</h3>
+          Clustered points <div class='range-slider' id='range-slider'></div> Random
+          <br/>
+          <div class='input'>Number of clusters</div>: <input id='num-clusters' type='text' value='3'>
+          <br/>
+          <div class='input'>Number of centroids</div>: <input id='num-centroids' type='text' value='3'>
+          <br/>
+          <br />
+          <a class='new-points btn btn-danger'>New points</a>
+          <a class='new-centroids btn btn-danger'>New centroids</a>
         </div>
+      </div>
+      <div class='col-xs-6'>
+        <div id='kmeans-vis'></div>
       </div>
     </div>
     <footer>
-      Made by <a href='http://www.stanford.edu/~kvmohan'>Karanveer Mohan</a> for <a href='http://www.ee103.stanford.edu/'>EE103</a>. Source code on <a>Github</a>.
+      Made by <a href='http://www.stanford.edu/~kvmohan'>Karanveer Mohan</a> for <a href='http://ee103.stanford.edu/'>EE103</a>. Source code on <a href='https://github.com/karanveerm/kmeans'>Github</a>.
     </footer>
   </div>
   <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>

@@ -14,12 +14,18 @@ body {
   min-height: 760px;
 }
 
+.k-means-header {
+  padding-left: 0px;
+}
+
 .kmeans-div {
   width: 600px;
 }
 
 #kmeans-vis {
   margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
   height: 600px;
   width: 600px;
   border: 1px solid black;
@@ -29,7 +35,7 @@ body {
   fill-opacity: 0.2;
 }
 
-#num-clusters {
+#num-clusters, #num-centroids {
   border: 0px;
   border-bottom: 1px solid black;
   padding-left: 8px;
@@ -48,7 +54,7 @@ a {
 
 .algorithm-start {
   padding-top: 10px;
-  padding-bottom: 25px;
+  padding-bottom: 10px;
 }
 
 .step-title {
@@ -70,18 +76,22 @@ a {
   padding-right: 5px;
 }
 
-.demo-explanation {
-  padding-top: 5px;
-}
-
 hr {
   margin-top: 30px;
   border-top: 1px solid #ccc;
 }
 
-.range-slider-custom {
-  padding-left: 15px;
-  margin-bottom: 10px;
+.data-header {
+  margin-top: 0px;
+}
+
+div.input {
+  width: 148px;
+  display: inline-block;
+}
+
+a.generate {
+  margin-left: 2px;
 }
 
 footer {
