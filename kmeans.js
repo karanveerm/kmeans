@@ -86,6 +86,20 @@ $(function() {
     resetPoints();
   });
 
+  $numClusters.blur(function() {
+    var numClustersNew = parseInt($numClusters.val(), 10);
+    if (!isNaN(numClustersNew) && numClustersNew != numClusters) {
+      resetPoints();
+    }
+  });
+
+  $numCentroids.blur(function() {
+    var numCentroidsNew = parseInt($numCentroids.val(), 10);
+    if (!isNaN(numCentroidsNew) && numCentroidsNew != numCentroids) {
+      generateClusters();
+    }
+  });
+
   $('.new-centroids').click(function() {
     generateClusters();
   });
