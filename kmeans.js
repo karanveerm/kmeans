@@ -10,6 +10,8 @@ $(function() {
   var numCentroids = parseInt($numClusters.val(), 10);
 
   var $rangeSlider = $('#range-slider');
+  var $meanSquareValue = $('.mean-square-value');
+
   var width = $('#kmeans-vis').width();
   var height = width;
 
@@ -59,6 +61,7 @@ $(function() {
   $step.click(function() {
     if ($step.hasClass('find')) {
       findClosestCentroid();
+      findClosestCentroidAnimation();
       $step.removeClass('find');
       $step.html('Update centroid');
 
@@ -66,6 +69,7 @@ $(function() {
       $('.update').addClass('active');
     } else {
       updateCentroid();
+      updateCentroidAnimation();
       resetCentroidUpdateText();
     }
   });
@@ -104,6 +108,20 @@ $(function() {
     generateClusters();
   });
 
+  $numClusters.blur(function() {
+    var numClustersNew = parseInt($numClusters.val(), 10);
+    if (!isNaN(numClustersNew) && numClustersNew != numClusters) {
+      resetPoints();
+    }
+  });
+
+  $numCentroids.blur(function() {
+    var numCentroidsNew = parseInt($numCentroids.val(), 10);
+    if (!isNaN(numCentroidsNew) && numCentroidsNew != numCentroids) {
+      generateClusters();
+    }
+  });
+
   function uncolorPoints() {
     pointsGroup.selectAll('*').remove();
     pointsGroup.selectAll('circle')
@@ -119,8 +137,12 @@ $(function() {
   function resetPoints() {
     resetCentroidUpdateText();
     points = [];
+
+    // Arbitrarily chosen variance and percentageClusteredPoints
+    // There is no signficance behind the constants except that they looked good
+    // with the slider.
     var variance = randomness / 2 + 5;
-    var percentageClusteredPoints = (100 - randomness) / 100;
+    var percentageClusteredPoints = (100 - 0.8 * randomness) / 100;
 
     numClusters = parseInt($numClusters.val(), 10);
 
@@ -144,6 +166,10 @@ $(function() {
     uncolorPoints();
     resetCentroidUpdateText();
     voronoiGroup.selectAll('*').remove();
+
+    // Done to show the initial mean square distance
+    findClosestCentroid();
+    updateCentroid();
   }
 
   // Randomly generates the clusters and initializes the d3 animation
@@ -172,6 +198,10 @@ $(function() {
       .style('stroke', 'black')
       .style('stroke-width', '0.7')
       .attr('transform', function(d){ return 'translate(' + d[0] + ',' + d[1] + ')'; });
+
+    // Done to show the initial mean square distance
+    findClosestCentroid();
+    updateCentroid();
   }
 
   // For each point, we find the centroid it is the closest to.
@@ -195,7 +225,9 @@ $(function() {
       }
       centroidBins[minIndex].push(point);
     }
+  }
 
+  function findClosestCentroidAnimation() {
     // TODO: This is terribly inefficient, fix later
     // Color the points according to the centroid to which they belong
     pointsGroup.selectAll('*')
@@ -226,11 +258,16 @@ $(function() {
   // Once the points have been assigned to the centroids, updates the
   // centroid to be the mean of all points assigned to it
   function updateCentroid() {
+    var meanSquaredDistance = 0;
     // Find new centroids
     for (var i = 0; i < centroidBins.length; i++) {
       bin = centroidBins[i];
       newCentroid = avgXY(bin);
 
+      for (var j = 0; j < bin.length; j++) {
+        var dist = distance(newCentroid, bin[j]);
+        meanSquaredDistance += dist * dist;
+      }
       // If there are no points in the bin, newCentroid may be NaN
       // In this case, we don't update the centroid location
       if (!isNaN(newCentroid[0]) && !isNaN(newCentroid[1])) {
@@ -238,12 +275,18 @@ $(function() {
       }
     }
 
+    meanSquaredDistance /= NUM_POINTS;
+    $meanSquareValue.html(meanSquaredDistance.toFixed(2));
+  }
+
+  function updateCentroidAnimation() {
     centroidsGroup.selectAll('path')
       .data(centroids)
       .transition()
       .attr('transform',function(d){ return 'translate(' + d[0] + ',' + d[1] + ')'; });
   }
 
+  // Initial generation of clusters
   generateClusters();
 
   // Helper functions

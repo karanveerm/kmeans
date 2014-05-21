@@ -14,18 +14,22 @@
 </head>
 <body>
   <div class='container'>
-    <div class='row col-xs-12 k-means-header'>
+    <div class='row col-xs-12'>
       <h1> Visualizing K-Means Clustering </h1>
       <br/>
     </div>
     <div class='row'>
-      <div class='col-xs-6'>
+      <div class='col-xs-7'>
+        <div id='kmeans-vis'></div>
+        <div class='mean-square-error'>Mean square point-centroid distance: <span class='mean-square-value'>unknown</span></div>
+      </div>
+      <div class='col-xs-5'>
         <div class='row'>
           The $k$-means algorithm is an iterative method for clustering a set of $N$ points (vectors) into $k$ groups or clusters of points.
           <hr>
           <h3>Algorithm</h3>
           <div class='algorithm-start'>
-            Repeat until convergence (i.e. the diagram stops changing):
+            Repeat until convergence:
           </div>
           <div class='step-title closest active'>
             Find closest centroid
@@ -54,9 +58,6 @@
           <a class='new-points btn btn-danger'>New points</a>
           <a class='new-centroids btn btn-danger'>New centroids</a>
         </div>
-      </div>
-      <div class='col-xs-6'>
-        <div id='kmeans-vis'></div>
       </div>
     </div>
     <footer>

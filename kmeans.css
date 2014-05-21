@@ -25,7 +25,6 @@ body {
 #kmeans-vis {
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-left: 10px;
   height: 600px;
   width: 600px;
   border: 1px solid black;
@@ -40,6 +39,8 @@ body {
   border-bottom: 1px solid black;
   padding-left: 8px;
   width: 30px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   background-color: #fcfcfc;
 }
 
@@ -96,7 +97,7 @@ a.generate {
 
 footer {
   position: absolute;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 5px;
   bottom: 0;
   border-top: 1px solid #ccc;;
