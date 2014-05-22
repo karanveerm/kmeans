@@ -167,9 +167,7 @@ $(function() {
     resetCentroidUpdateText();
     voronoiGroup.selectAll('*').remove();
 
-    // Done to show the initial mean square distance
-    findClosestCentroid();
-    updateCentroid();
+    $meanSquareValue.html('not yet calculated');
   }
 
   // Randomly generates the clusters and initializes the d3 animation
@@ -199,9 +197,7 @@ $(function() {
       .style('stroke-width', '0.7')
       .attr('transform', function(d){ return 'translate(' + d[0] + ',' + d[1] + ')'; });
 
-    // Done to show the initial mean square distance
-    findClosestCentroid();
-    updateCentroid();
+    $meanSquareValue.html('not yet calculated');
   }
 
   // For each point, we find the centroid it is the closest to.
@@ -225,6 +221,19 @@ $(function() {
       }
       centroidBins[minIndex].push(point);
     }
+
+    var meanSquaredDistance = 0;
+    for (var i = 0; i < centroidBins.length; i++) {
+      bin = centroidBins[i];
+
+      for (var j = 0; j < bin.length; j++) {
+        var dist = distance(centroids[i], bin[j]);
+        meanSquaredDistance += dist * dist;
+      }
+    }
+
+    meanSquaredDistance /= NUM_POINTS;
+    $meanSquareValue.html(meanSquaredDistance.toFixed(2));
   }
 
   function findClosestCentroidAnimation() {
